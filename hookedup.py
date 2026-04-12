@@ -57,6 +57,8 @@ print(' '.join(printed_word))
 players_letter = str(input('\nВведите букву: '))
 
 count = 0
+used_letters = set()
+
 while '_' in printed_word:
 
     input_letters_count = 0
@@ -71,7 +73,12 @@ while '_' in printed_word:
         print('Ошибка, вы ввели число')
         players_letter = str(input('\nВведите букву: '))
 
+    elif players_letter in used_letters:
+        print(f'Вы уже вводили букву "{players_letter}" Попробуйте еще раз')
+        players_letter = str(input('\nВведите букву: '))
+    
     elif players_letter in letters:
+        used_letters.add(players_letter)
         letters_list = [i for i in printed_word]
         for i in range(len(letters)):
             if letters[i] == players_letter:
@@ -85,7 +92,10 @@ while '_' in printed_word:
         print(' '.join(printed_word))
         players_letter = str(input('\nВведите букву: '))  
 
+    
+
     elif players_letter not in letters:
+        used_letters.add(players_letter)
         count += 1    
         print(f'\nБуквы "{players_letter}" нету в слове. Попробуй еще раз')
 
