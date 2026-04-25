@@ -1,35 +1,36 @@
 import random
-
-stage1 = '_|_'
-stage2 = """ |    
+stages = [
+'_|_',
+""" |    
  |
  |
  |
-_|_"""
-stage3 = """ ______
+_|_""",
+""" ______
  |    |
  |
  |
  |
-_|_"""
-stage4 = """ ______
+_|_""",
+""" ______
  |    |
  |    o
  |
  |
-_|_"""
-stage5 = """ ______
+_|_""",
+""" ______
  |    |
  |    o
  |   /|\\
  |
-_|_"""
-stage6 = """ ______
+_|_""",
+""" ______
  |    |
  |    o
  |   /|\\
  |   / \\
 _|_"""
+]
 
 with open("words_base.txt", "r", encoding='utf-8') as file:
     words_list = [str_word.strip() for str_word in file]
@@ -61,15 +62,11 @@ used_letters = set()
 
 while '_' in printed_word:
 
-    input_letters_count = 0
-    for i in players_letter:
-        input_letters_count+=1
-
-    if input_letters_count > 1:
+    if len(players_letter) != 1:
         print('Ошибка! Нужно ввести только одну букву')
         players_letter = str(input('\nВведите букву: '))
         
-    elif players_letter in str([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]):
+    elif not(players_letter.isalpha()):
         print('Ошибка, вы ввели число')
         players_letter = str(input('\nВведите букву: '))
 
@@ -95,30 +92,18 @@ while '_' in printed_word:
     
 
     elif players_letter not in letters:
+        
         used_letters.add(players_letter)
         count += 1    
+        
         print(f'\nБуквы "{players_letter}" нету в слове. Попробуй еще раз')
 
         print (f'осталось попыток {6 - count}/6')
 
-        if count == 1:
-            print(stage1)
-
-        if count == 2:
-            print(stage2)
-        if count == 3:
-            print(stage3)
-
-        if count == 4:
-            print(stage4)
-
-        if count == 5:
-            print(stage5)
+        print(stages[count-1])
         
         if count == 6:
-            print(stage6)
             print('Вы проиграли :(')
-
             print (f'загаданное слово - {word}')
             break
             
