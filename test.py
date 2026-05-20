@@ -24,16 +24,25 @@ def hidden_word(word, letter):
     return ' '.join(printed_word)
 
 
-def test_func():
+def word_update(players_letter, printed_word, word):
+    letters_list = list(printed_word)
+    if players_letter in word:
+        for letter in range(len(word)):
+          if word[letter] == players_letter:
+              letters_list[letter] = players_letter
+    return ''.join(letters_list)
+
+def play_game():
     word = word_pick()
+    print(word)
     letter = random_letter(word)
     
     printed_word = hidden_word(word, letter)
+    print(printed_word)
     
-    return printed_word
+    players_letter = str(input())
+    
+    t = word_update(players_letter, printed_word, word)
+    return t
 
-print(test_func())
-
-
-
-
+print(play_game())
