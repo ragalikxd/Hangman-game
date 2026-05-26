@@ -21,16 +21,17 @@ def hidden_word(word, letter):
         else:
             printed_word += '_'
            
-    return ' '.join(printed_word)
+    return ''.join(printed_word)
 
 
 def word_update(players_letter, printed_word, word):
     letters_list = list(printed_word)
-    if players_letter in word:
-        for letter in range(len(word)):
-          if word[letter] == players_letter:
+    for letter in range(len(word)):
+        if word[letter] == players_letter:
               letters_list[letter] = players_letter
+
     return ''.join(letters_list)
+    
 
 def play_game():
     word = word_pick()
@@ -40,9 +41,27 @@ def play_game():
     printed_word = hidden_word(word, letter)
     print(printed_word)
     
-    players_letter = str(input())
+    players_letter = str(input("Введите букву: "))
     
-    t = word_update(players_letter, printed_word, word)
-    return t
+    while '_' in printed_word:
+        
+        if players_letter in word:
+            upd = word_update(players_letter, printed_word, word)
+            print(upd)
+            printed_word = upd
+            
+            if '_' not in printed_word:
+                print('Вы угадали слово')
+                break
+            
+            players_letter = str(input("Введите букву: "))
+
+            
+        elif players_letter not in word:
+            res = 'такой буквы нет'
+            print(res)
+            players_letter = str(input("Введите букву: "))
+
+
 
 print(play_game())
