@@ -1,5 +1,38 @@
 import random
 
+stages = [
+'_|_',
+""" |    
+ |
+ |
+ |
+_|_""",
+""" ______
+ |    |
+ |
+ |
+ |
+_|_""",
+""" ______
+ |    |
+ |    o
+ |
+ |
+_|_""",
+""" ______
+ |    |
+ |    o
+ |   /|\\
+ |
+_|_""",
+""" ______
+ |    |
+ |    o
+ |   /|\\
+ |   / \\
+_|_"""
+]
+
 def word_pick():
     with open("words_base.txt", "r", encoding='utf-8') as file:
         words_list = [str_word.strip() for str_word in file]
@@ -43,14 +76,17 @@ def play_game():
     
     players_letter = str(input("Введите букву: "))
     
+    count = 0
+    
     while '_' in printed_word:
-        
+   
         if players_letter in word:
             upd = word_update(players_letter, printed_word, word)
             print(upd)
             printed_word = upd
             
             if '_' not in printed_word:
+                
                 print('Вы угадали слово')
                 break
             
@@ -58,9 +94,18 @@ def play_game():
 
             
         elif players_letter not in word:
-            res = 'такой буквы нет'
-            print(res)
-            players_letter = str(input("Введите букву: "))
+            
+            count += 1
+            
+            print(f'\nБуквы {players_letter} нету в слове')
+            print(stages[count - 1])
+            
+            if count == 6:
+                print('Вы проиграли :(')
+                print(f'Закагаданное слово - {word}')
+                break
+            
+            players_letter = str(input("\nВведите букву: "))
 
 
 
