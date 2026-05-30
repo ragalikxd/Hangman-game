@@ -76,24 +76,37 @@ def play_game():
     
     players_letter = str(input("Введите букву: "))
     
+    players_letters_list = []
+    
     count = 0
     
     while '_' in printed_word:
+        
+        if players_letter in players_letters_list:
+            print(f'\nВы уже вводили букву {players_letter}')
+            
+            players_letter = str(input("\nВведите букву: "))
    
-        if players_letter in word:
+        elif players_letter in word:
+            
+            players_letters_list.append(players_letter)
+            
             upd = word_update(players_letter, printed_word, word)
             print(upd)
             printed_word = upd
             
             if '_' not in printed_word:
                 
-                print('Вы угадали слово')
+                print('\nВы угадали слово')
+                print(f'Все введенные буквы: {players_letters_list}')
                 break
             
-            players_letter = str(input("Введите букву: "))
+            players_letter = str(input("\nВведите букву: "))
 
             
         elif players_letter not in word:
+            
+            players_letters_list.append(players_letter)
             
             count += 1
             
@@ -103,10 +116,9 @@ def play_game():
             if count == 6:
                 print('Вы проиграли :(')
                 print(f'Закагаданное слово - {word}')
+                print(f'Все введенные буквы: {players_letters_list}')
                 break
             
             players_letter = str(input("\nВведите букву: "))
-
-
-
+            
 print(play_game())
